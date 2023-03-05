@@ -1,6 +1,6 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+import { userColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -20,7 +20,7 @@ const Datatable = () => {
       let list = [];
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
-        console.log(querySnapshot)
+        console.log(querySnapshot);
         querySnapshot.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() });
         });

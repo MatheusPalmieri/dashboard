@@ -3,13 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -18,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
-  const [per, setPerc] = useState(null);
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const uploadFile = () => {
@@ -29,8 +23,8 @@ const New = ({ inputs, title }) => {
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      console.log('storageRef',storageRef)
-      console.log('uploadTask',uploadTask)
+      console.log("storageRef", storageRef);
+      console.log("uploadTask", uploadTask);
 
       uploadTask.on(
         "state_changed",
@@ -38,7 +32,7 @@ const New = ({ inputs, title }) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
-          setPerc(progress);
+
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
@@ -84,7 +78,7 @@ const New = ({ inputs, title }) => {
         ...data,
         timeStamp: serverTimestamp(),
       });
-      navigate(-1)
+      navigate(-1);
     } catch (error) {
       console.error(error);
     }
@@ -134,9 +128,7 @@ const New = ({ inputs, title }) => {
                   />
                 </div>
               ))}
-              <button type="submit">
-                Send
-              </button>
+              <button type="submit">Send</button>
             </form>
           </div>
         </div>
