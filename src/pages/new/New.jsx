@@ -29,6 +29,9 @@ const New = ({ inputs, title }) => {
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
+      console.log('storageRef',storageRef)
+      console.log('uploadTask',uploadTask)
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -82,8 +85,8 @@ const New = ({ inputs, title }) => {
         timeStamp: serverTimestamp(),
       });
       navigate(-1)
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -131,7 +134,7 @@ const New = ({ inputs, title }) => {
                   />
                 </div>
               ))}
-              <button disabled={per !== null && per < 100} type="submit">
+              <button type="submit">
                 Send
               </button>
             </form>
